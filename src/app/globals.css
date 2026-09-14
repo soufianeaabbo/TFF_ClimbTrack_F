@@ -22,5 +22,45 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  /* background-color: black; */
+  
 }
+
+
+
+.globaldiv{
+  background-image: url(../img/fondsitejour.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+}
+
+.labelInput{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+.buttonMB {
+  padding: 2%;
+  background-color: #3E2190;
+  color: white;
+  border-radius: 5px;
+}
+
+
+.maindiv{
+  background-color: #090E18;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+
+
+
+
+
+
