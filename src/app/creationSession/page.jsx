@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 export default function CreateSession() {
 
@@ -13,11 +14,11 @@ export default function CreateSession() {
 
                     <div className="infoApercus flex gap-5  ">
                         <div className="formCreeSession border bg-amber-300 p-5 rounded-xl ">
-                            
+
                             <form action="" className="gap-10 flex flex-col">
                                 <div className="infoG flex flex-col gap-5">
                                     <div className="">
-                                        <h4>Informations générales</h4>
+                                        <h4>Informations générales </h4>
                                         <p>Ou et quand tu grimpes ?</p>
                                     </div>
 
@@ -77,8 +78,12 @@ export default function CreateSession() {
                                     </div>
                                 </div>
 
+                                <Link href="/sessionencours">
+                                    <button className="bg-red-500">Démarrer la session</button>
+                                </Link>
 
-                                <button className="bg-cyan-900">Démarrer la séance</button>
+                                {/* <button className="bg-cyan-900">Démarrer la session</button> */}
+
                             </form>
                         </div>
 

@@ -12,8 +12,9 @@ export default function NavBar() {
 
 
     return (
-        <nav className='flex flex-row gap-6'>
-            <ul className='flex flex-row gap-1'>
+        <nav className=' p-5'>
+
+            <ul className='flex flex-row gap-5'>
                 <li>
                     <Link href="/">Accueil</Link>
                 </li>
@@ -27,13 +28,13 @@ export default function NavBar() {
                     <Link href="/creationSession">Créé une SESSION</Link>
                 </li>
                 <li>
-                    <Link href="/fleur/v3">Fleurs (v3)</Link>
+                    <Link href="/ascension">Ajouter une Ascension</Link>
                 </li>
                 <li>
-                    <Link href="/contact">Contact</Link>
+                    <Link href="/exo">Exo et renfo</Link>
                 </li>
             </ul>
-           
+
         </nav>
     );
 }
