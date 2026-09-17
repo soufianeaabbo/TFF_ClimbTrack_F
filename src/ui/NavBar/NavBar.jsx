@@ -12,29 +12,38 @@ export default function NavBar() {
 
 
     return (
-        <nav className=' p-5'>
 
-            <ul className='flex flex-row gap-5'>
-                <li>
-                    <Link href="/">Accueil</Link>
-                </li>
-                <li>
-                    <Link href="/login">Se connectez</Link>
-                </li>
-                <li>
-                    <Link href="/register">Crée un compte</Link>
-                </li>
-                <li>
-                    <Link href="/creationSession">Créé une SESSION</Link>
-                </li>
-                <li>
-                    <Link href="/ascension">Ajouter une Ascension</Link>
-                </li>
-                <li>
-                    <Link href="/exo">Exo et renfo</Link>
-                </li>
-            </ul>
 
-        </nav>
+            <nav className='S p-5 bg-red-50 '>
+
+                <ul className=' bg-green-500 h-200 justify-between flex flex-col'>
+                    <li>
+                        <Link href="/">Dashboard/Acceuil</Link>
+                    </li>
+
+                    <li>
+                        <Link href="/login">Se connectez</Link>
+                    </li>
+
+                    <li>
+                        <Link href="/register">Crée un compte</Link>
+                    </li>
+                    
+                    <li>
+                        <Link href="/creationSession">Créé une SESSION</Link>
+                    </li>
+                    <li>
+                        <Link href="/ascension">Ajouter une Ascension</Link>
+                    </li>
+                    <li>
+                        <Link href="/exo">Exo et renfo</Link>
+                    </li>
+                    <li>
+                        <Link href="/">Calendrier</Link>
+                    </li>
+                </ul>
+
+            </nav>
+      
     );
 }

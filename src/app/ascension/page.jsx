@@ -229,7 +229,7 @@ export default function CreateAscension() {
 
                             <div className="flex justify-around">
                                 <button>Annuler</button>
-                                <button>Enregistrer</button>
+                                <button><a href="/sessionencours">Enregistrer</a></button>
                             </div>
 
 
