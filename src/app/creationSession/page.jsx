@@ -1,6 +1,25 @@
+// Permet d'utiliser les interactions React dans cette page Next.js
+'use client';
 import Link from "next/link";
 
+// Importe l'action qui va gérer l'inscription
+import { ClimbSessionformAction } from "@/actions/climbSession.action";
+import { useActionState } from 'react';
+
+
 export default function CreateSession() {
+
+    // Connecte le formulaire à authRegisterAction
+    // state       → contient notamment les erreurs retournées par l'action
+    // handleSubmit → fonction qui sera appelée lors de l'envoi du formulaire
+    // isPending   → true pendant que l'action est en cours
+    const [state, handleSubmit, isPending] = useActionState(
+        ClimbSessionformAction,
+        { error: null }
+    );
+
+
+
 
     return (
         <>
@@ -15,7 +34,7 @@ export default function CreateSession() {
                     <div className="infoApercus flex gap-5  ">
                         <div className="formCreeSession border bg-amber-300 p-5 rounded-xl ">
 
-                            <form action="" className="gap-10 flex flex-col">
+                            <form action={handleSubmit} className="gap-10 flex flex-col">
                                 <div className="infoG flex flex-col gap-5">
                                     <div className="">
                                         <h4>Informations générales </h4>
@@ -24,30 +43,25 @@ export default function CreateSession() {
 
                                     <div className="flex gap-5">
                                         <div className="flex flex-col">
-                                            <label htmlFor="">Date :</label>
-                                            <input className="border" type="text" />
+                                            <label htmlFor="date">Date :</label>
+                                            <input name="date" className="border" type="date" />
                                         </div>
 
                                         <div className="flex flex-col">
-                                            <label htmlFor="">Lieu/Salle* :</label>
-                                            <input className="border" type="text" />
+                                            <label htmlFor="lieu">Lieu/Salle* :</label>
+                                            <input name="lieu" className="border" type="text" />
                                         </div>
                                     </div>
 
                                     <div className="flex gap-5">
-                                        <div className="flex flex-col">
-                                            <label htmlFor="">Type d'éscalade :</label>
-                                            <input className="border" type="text" />
-                                        </div>
+
 
                                         <div className="flex flex-col">
-                                            <label htmlFor="">Heure de début* :</label>
-                                            <input className="border" type="text" />
+                                            <label htmlFor="heure_debut">Heure de début* :</label>
+                                            <input name="heure_debut" className="border" type="time" />
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <hr />
                                 <div className="infoO flex flex-col gap-5 ">
                                     <div>
@@ -55,37 +69,42 @@ export default function CreateSession() {
                                     </div>
                                     <div className="flex gap-5">
                                         <div className="flex flex-col">
-                                            <label htmlFor="">Durée prévue :</label>
-                                            <input className="border" type="text" />
+                                            <label htmlFor="duree">Durée prévue :</label>
+                                            <input name="duree" className="border" type="number" />
                                         </div>
 
                                         <div className="flex flex-col">
-                                            <label htmlFor="">Partenaire de grimpe :</label>
-                                            <input className="border" type="text" />
+                                            <label htmlFor="partenaire">Partenaire de grimpe :</label>
+                                            <input name="partenaire" className="border" type="text" />
                                         </div>
                                     </div>
 
                                     <div className="flex gap-5">
                                         <div className="flex flex-col">
-                                            <label htmlFor="">Objectif de la séance :</label>
-                                            <input className="border" type="text" />
+                                            <label htmlFor="objectif">Objectif de la séance :</label>
+                                            <input name="objectif" className="border" type="text" />
                                         </div>
 
                                         <div className="flex flex-col">
-                                            <label htmlFor="">notes :</label>
-                                            <input className="border" type="text" />
+                                            <label htmlFor="notes">notes :</label>
+                                            <input name="notes" className="border" type="text" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <Link href="/sessionencours">
+                                <button className="buttonMB mt-7" type='submit' disabled={isPending}>
+                                    {isPending ? 'Création...' : 'Démarrez la session'}
+                                </button>
+
+                                {/* <Link href="/sessionencours">
                                     <button className="bg-red-500">Démarrer la session</button>
-                                </Link>
+                                </Link> */}
 
                                 {/* <button className="bg-cyan-900">Démarrer la session</button> */}
 
                             </form>
                         </div>
+
 
 
                         <div className="apercu flex flex-col gap-5  " >
