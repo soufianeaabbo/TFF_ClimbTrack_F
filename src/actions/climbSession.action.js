@@ -1,6 +1,7 @@
 'use server';
 // Permet de rediriger l'utilisateur après une inscription réussie
 import { redirect } from 'next/navigation';
+import { getInfoUserAction } from './auth.action';
 
 export async function ClimbSessionformAction(prevState, formData) {
 
@@ -14,7 +15,10 @@ export async function ClimbSessionformAction(prevState, formData) {
         };
     }
 
- 
+
+    // Récupère l'utilisateur actuellement connecté
+    const userConnected = await getInfoUserAction();
+
 
     // on met manuellement ce qu'on faisait dans le thunder avec le post etc
     const res = await fetch(`${process.env.URL_WEB_API}/session`, {
@@ -23,7 +27,7 @@ export async function ClimbSessionformAction(prevState, formData) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            user_id: 1,
+            user_id: userConnected.id,
             date: data.date,
             lieu: data.lieu,
             heure_debut: data.heure_debut,
@@ -44,7 +48,7 @@ export async function ClimbSessionformAction(prevState, formData) {
     }
 
 
-       // Récupère la session que le backend vient de créer
+    // Récupère la session que le backend vient de créer
     const sessionCreated = await res.json();
 
     console.log("SESSION CRÉÉE :", sessionCreated);
