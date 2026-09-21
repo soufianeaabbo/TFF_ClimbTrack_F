@@ -2,10 +2,16 @@ import SessionInfo from "../../../../components/sessionencoursComponent/sessionI
 import { Plus } from "lucide-react";
 import { CalendarDays, Pencil, ChevronRight } from "lucide-react";
 import Link from "next/link"
+
+import { endSessionAction } from "@/actions/climbSession.action";
+import AscensionList from "../../../../components/ascensionComponent/ascensionList";
+
 export default async function SessionEnCours({ params }) {
 
 
-    // Récupère les paramètres de l'URL
+
+    // Récupère l'id présent dans l'URL
+    // Exemple : /sessionencours/5 → id = 5
     const { id } = await params;
 
 
@@ -15,7 +21,7 @@ export default async function SessionEnCours({ params }) {
 
 
             <div className="flex flex-col justify-center  w-7/8 gap-5  ">
-            
+
                 <div className="flex items-center gap-2 text-sm p-5">
                     <span className="text-gray-500">Séances</span>
                     <ChevronRight size={16} className="text-gray-400" />
@@ -67,24 +73,8 @@ export default async function SessionEnCours({ params }) {
 
 
 
-                    <div className="max-h-80  overflow-y-auto flex flex-col  gap-5">
-
-                        <div className="sectionascension flex bg-amber-300  justify-around p-2 items-center">
-                            <div>19:42</div>
-                            <div>Bloc</div>
-                            <div>
-                                <div>Le toit Jaune</div>
-                                <div>Secteur le toit</div>
-                            </div>
-                            <div>V4</div>
-                            <div>3 essaie</div>
-                            <div>Reussis</div>
-                            <div>Flash</div>
-                            <div>...</div>
-
-                        </div>
-
-                    </div>
+                        <AscensionList sessionId={id} />
+                 
 
                     <div className="border-2 border-dashed border-blue-200 rounded-xl p-5 flex flex-col items-center justify-center gap-1">
 
@@ -94,7 +84,7 @@ export default async function SessionEnCours({ params }) {
                         </div>
 
                         <Link
-                            href="/ascension"
+                            href={`/ascension/${id}`}
                             className="text-blue-600 font-semibold"
                         >
                             Ajouter une ascension
@@ -110,7 +100,10 @@ export default async function SessionEnCours({ params }) {
 
                     <div className="flex justify-around">
                         <button className="border p-2 boutonModifierRouge">Mettre en pause</button>
-                        <button className="border p-2 boutonModifierRouge">Terminer la session</button>
+                        {/* bind permet d'envoyer l'id de la session actuelle à endSessionAction lors du clic */}
+                        <form action={endSessionAction.bind(null, id)}>
+                            <button className="border p-2 boutonModifierRouge">Terminer la session</button>
+                        </form>
                     </div>
 
                 </div>

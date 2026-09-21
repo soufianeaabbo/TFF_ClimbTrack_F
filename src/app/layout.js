@@ -7,9 +7,15 @@ import NavBar from '@/ui/NavBar/NavBar';
 
 import { Inter } from "next/font/google";
 
+import { getCurrentSessionAction } from "@/actions/climbSession.action";
+
 
 // Récupère les infos de l'utilisateur connecté
 import { getInfoUserAction } from "@/actions/auth.action";
+
+
+
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,16 +44,22 @@ export const metadata = {
 };
 
 export default  async function RootLayout({ children }) {
+  
+  
+      // Récupère l'utilisateur connecté grâce au cookie/token
+    const userConnected = await getInfoUserAction();
 
-    // Récupère l'utilisateur connecté grâce au cookie/token
-  const userConnected = await getInfoUserAction();
+  // S'il y a un user connecté, récupère sa session en cours
+const currentSession = userConnected
+    ? await getCurrentSessionAction(userConnected.id)
+    : null;
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-row">
-        <NavBar userConnected={userConnected} ></NavBar>
+        <NavBar userConnected={userConnected} currentSession={currentSession} ></NavBar>
 
         <main className="flex-1">
         {children}

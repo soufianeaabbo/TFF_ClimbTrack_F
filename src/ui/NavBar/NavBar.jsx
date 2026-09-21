@@ -25,7 +25,7 @@ import Link from 'next/link';
 //? Alternative possible : Mettre en place le prerendering (PPR) et définir la NavBar en composant Server
 //? Documentation → https://nextjs.org/docs/app/glossary#partial-prerendering-ppr
 
-export default function NavBar({ userConnected }) {
+export default function NavBar({ userConnected, currentSession }) {
 
     const pathname = usePathname();
 
@@ -33,7 +33,7 @@ export default function NavBar({ userConnected }) {
 
     return (
 
-        <nav className="p-5 w-72 border">
+        <nav className="p-5 w-72 border" >
 
             <ul className="flex flex-col gap-5 w-full">
 
@@ -59,7 +59,7 @@ export default function NavBar({ userConnected }) {
                             }`}
                     >
                         <CalendarDays size={22} className="text-sky-500" />
-                        Séances
+                        Sessions
                     </Link>
                 </li>
 
@@ -103,7 +103,7 @@ export default function NavBar({ userConnected }) {
                 </li>
 
                 {/* TEMPORAIRE */}
-                <li>
+                {/* <li>
                     <Link
                         href="/ascension"
                         className={`flex items-center gap-4 w-full px-4 py-3 rounded-lg text-lg ${pathname === "/ascension"
@@ -114,20 +114,15 @@ export default function NavBar({ userConnected }) {
                         <Mountain size={22} className="text-blue-500" />
                         Ajouter une ascension
                     </Link>
-                </li>
+                </li> */}
 
                 {/* TEMPORAIRE */}
                 <li>
-                    <Link
-                        href="/sessionencours/3"
-                        className={`flex items-center gap-4 w-full px-4 py-3 rounded-lg text-lg ${pathname.startsWith("/sessionencours")
-                            ? "bg-red-100 text-red-500"
-                            : "text-gray-700"
-                            }`}
-                    >
-                        <Timer size={22} className="text-red-400" />
-                        Session en cours
-                    </Link>
+                    {currentSession && (
+                        <Link href={`/sessionencours/${currentSession.id}`}>
+                            Session en cours
+                        </Link>
+                    )}
                 </li>
 
                 <li>

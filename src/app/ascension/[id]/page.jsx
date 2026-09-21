@@ -1,11 +1,13 @@
 
 import { Mountain } from "lucide-react";
+import { createAscensionAction } from "@/actions/ascension.action";
 
-
-export default function CreateAscension() {
+export default async function CreateAscension({ params }) {
 
     const tableStyle = ["Dalle", "Dévers", "Vertical", "Toit", "Coordination", "Force", "Technique", "Équilibre", "Puissance", "Crimps", "Slopers", "Compression", "Dynamique", "Statique", "Autre"]
 
+
+    const { id } = await params;
 
     return (
         <>
@@ -46,7 +48,12 @@ export default function CreateAscension() {
 
                         <div className="infobloc  p-5 flex flex-col gap-3 w-3/4  rounded-xl">
 
-                            <form action="" className="flex  gap-5">
+
+
+                            <form action={createAscensionAction} className="flex  gap-5">
+
+                                {/* Garde l'id de la session pour rattacher l'ascension à la bonne session */}
+                                <input type="hidden" name="session_id" value={id} />
 
                                 <div className="w-1/2 infoescalade flex flex-col gap-5 justify-between rounded-2xl p-5 box bg-white shadow-2xl ">
                                     <div>
@@ -78,13 +85,13 @@ export default function CreateAscension() {
                                     </div>
 
                                     <div className="flex flex-col">
-                                        <label htmlFor="">Nom du bloc/voie</label>
-                                        <input className="border" type="text" placeholder="ex : Le Toit Jaune" />
+                                        <label htmlFor="nom">Nom du bloc/voie</label>
+                                        <input className="border" name="nom" type="text" placeholder="ex : Le Toit Jaune" />
                                     </div>
 
                                     <div className="flex flex-col">
-                                        <label htmlFor="">Cotation</label>
-                                        <select className="border" name="grade">
+                                        <label htmlFor="cotation">Cotation</label>
+                                        <select className="border" name="cotation">
                                             <option value="">Choisir une cotation</option>
                                             <option value="V0">V0</option>
                                             <option value="V1">V1</option>
@@ -98,38 +105,34 @@ export default function CreateAscension() {
                                     </div>
 
                                     <div className="flex flex-col">
-                                        <label htmlFor="">Secteur/mur</label>
-                                        <select className="border" name="grade">
-                                            <option value="">Choisir une cotation</option>
-                                            <option value="V0">V0</option>
-                                            <option value="V1">V1</option>
-                                            <option value="V2">V2</option>
-                                            <option value="V3">V3</option>
-                                            <option value="V4">V4</option>
-                                            <option value="V5">V5</option>
-                                            <option value="V6">V6</option>
-                                            <option value="V7+">V7+</option>
+                                        <label htmlFor="secteur">Secteur/mur</label>
+                                        <select className="border" name="secteur">
+                                            <option value="">Choisir un secteur</option>
+                                            <option value="Devers">Devers</option>
+                                            <option value="dalle">Dalle</option>
+                                            <option value="arete">Arête</option>
+                                            <option value="diedre">Dièdre</option>
+                                            <option value="toit">Toit</option>
+                                            <option value="vertical">Vertical</option>
                                         </select>
                                     </div>
 
                                     <div className="flex flex-col">
-                                        <label htmlFor="">Couleur</label>
-                                        <select className="border" name="grade">
-                                            <option value="">Choisir une cotation</option>
-                                            <option value="V0">V0</option>
-                                            <option value="V1">V1</option>
-                                            <option value="V2">V2</option>
-                                            <option value="V3">V3</option>
-                                            <option value="V4">V4</option>
-                                            <option value="V5">V5</option>
-                                            <option value="V6">V6</option>
-                                            <option value="V7+">V7+</option>
+                                        <label htmlFor="couleur">Couleur</label>
+                                        <select className="border" name="couleur">
+                                            <option value="">Choisir une couleurs</option>
+                                            <option value="Jaune">Jaune</option>
+                                            <option value="Vert">Vert</option>
+                                            <option value="BLeu">BLeu</option>
+                                            <option value="Rouge">Rouge</option>
+                                            <option value="Noire">Noire</option>
+                                            <option value="Mauve">Mauve</option>
                                         </select>
                                     </div>
 
                                     <div className="flex flex-col">
-                                        <label htmlFor="">Commentaire</label>
-                                        <input className="border" type="text" />
+                                        <label htmlFor="commentaire">Commentaire</label>
+                                        <input className="border" type="text" name="commentaire" />
                                     </div>
 
                                 </div>
@@ -141,14 +144,13 @@ export default function CreateAscension() {
                                         <h2>Résultats et essais</h2>
                                     </div>
 
-
                                     <div>
-                                        <label htmlFor="">Résultats</label>
+                                        <label htmlFor="resultat">Résultats</label>
                                         <div className="flex gap-3">
 
                                             {/* BLOC */}
                                             <label className="flex-1 cursor-pointer">
-                                                <input type="radio" name="type" value="reussi" className="peer hidden " defaultChecked />
+                                                <input type="radio" name="resultat" value="true" className="peer hidden " defaultChecked />
                                                 <div className="border rounded-lg p-4 text-center peer-checked:bg-[#087FE7] peer-checked:border-cyan-500 border-cyan-500">
                                                     ✅ Réussi
                                                 </div>
@@ -157,7 +159,7 @@ export default function CreateAscension() {
 
                                             {/* VOIE */}
                                             <label className="flex-1 cursor-pointer">
-                                                <input type="radio" name="type" value="echouer" className="peer hidden" />
+                                                <input type="radio" name="resultat" value="false" className="peer hidden" />
                                                 <div className="border rounded-lg p-4 text-center peer-checked:bg-[#087FE7] peer-checked:border-cyan-500 border-cyan-500">
                                                     ❌ Échoué
                                                 </div>
@@ -166,20 +168,33 @@ export default function CreateAscension() {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col">
-                                        <label htmlFor="">Nombre d'essais*</label>
-                                        <input type="number" className="border" />
-                                    </div>
+                                    {/* Nombre d'essais */}
+                                    <div className="flex flex-col gap-2">
+                                        <label htmlFor="nombre_essais">
+                                            Nombre d'essais*
+                                        </label>
 
-
-                                    <div className="flex flex-col">
-                                        <label htmlFor="">Méthode</label>
-                                        <select name="" id="" className="">
-                                            <option value="">Flash</option>
-                                            <option value="">à vue</option>
-                                            <option value="">à projet</option>
+                                        <select
+                                            name="nombre_essais"
+                                            id="nombre_essais"
+                                            required
+                                        >
+                                            <option value="">Sélectionner</option>
+                                            <option value="1">Flash — 1 essai</option>
+                                            <option value="2">2 essais</option>
+                                            <option value="3">3 essais</option>
+                                            <option value="4">4 essais</option>
+                                            <option value="5">5 essais</option>
+                                            <option value="6">6 essais</option>
+                                            <option value="7">7 essais</option>
+                                            <option value="8">8 essais</option>
+                                            <option value="9">9 essais</option>
+                                            <option value="10">10+ essais</option>
                                         </select>
                                     </div>
+
+
+
 
                                     <div className="border border-gray-800 rounded-xl p-4">
 
@@ -213,7 +228,7 @@ export default function CreateAscension() {
 
                                     <div className="flex justify-around gap-5">
                                         <button className="border border-[#E2E8F0] bg-white rounded-lg w-1/3">Annuler</button>
-                                        <button className="bg-[#087FE7] text-white rounded-lg px-6 py-3 w-2/3"><a href="/sessionencours">Enregistrer</a></button>
+                                        <button className="bg-[#087FE7] text-white rounded-lg px-6 py-3 w-2/3">Enregistrer</button>
                                     </div>
                                 </div>
 
@@ -223,6 +238,8 @@ export default function CreateAscension() {
 
 
                             </form>
+
+
 
                         </div>
 

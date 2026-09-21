@@ -53,7 +53,7 @@ export default async function SessionInfo({ id }) {
                     </div>
                     <div>
                         <p className="text-gray-500">Heure </p>
-                        <p> {session.heure_debut.slice(0, 5)}</p>
+                        <p>{session.heure_debut ? session.heure_debut.slice(0, 5) : "--:--"}</p>
                     </div>
                 </div>
 
