@@ -22,165 +22,223 @@ export default function CreateSession() {
 
 
     return (
-        <>
-            <div className="flex flex-col min-h-[100vh] items-center justify-center border">
+    <div className="min-h-screen bg-slate-50 px-10 py-10">
 
-                <div className="flex flex-col gap-5">
-                    <div className="flex flex-col  ">
-                        <h1>Créer une Seance</h1>
-                        <p>Renseigne les informations de ta séance pour commencer à enregistrer tes blocs et voies</p>
+        <div className="max-w-4xl mx-auto">
+
+            {/* HEADER */}
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-slate-900">
+                    Créer une séance
+                </h1>
+
+                <p className="text-gray-500 mt-1">
+                    Renseigne les informations de ta séance pour commencer à enregistrer tes blocs et voies.
+                </p>
+            </div>
+
+
+            {/* CARTE FORMULAIRE */}
+            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
+
+                <form
+                    action={handleSubmit}
+                    className="flex flex-col gap-8"
+                >
+
+                    {/* PREMIÈRE PARTIE */}
+                    <div>
+                        <h2 className="text-xl font-semibold text-slate-900">
+                            Informations générales
+                        </h2>
+
+                        <p className="text-sm text-gray-500 mt-1">
+                            Où et quand tu grimpes ?
+                        </p>
                     </div>
 
-                    <div className="infoApercus flex gap-5  ">
-                        <div className="formCreeSession border bg-amber-300 p-5 rounded-xl ">
 
-                            <form action={handleSubmit} className="gap-10 flex flex-col">
-                                <div className="infoG flex flex-col gap-5">
-                                    <div className="">
-                                        <h4>Informations générales </h4>
-                                        <p>Ou et quand tu grimpes ?</p>
-                                    </div>
+                    <div className="grid grid-cols-2 gap-6">
 
-                                    <div className="flex gap-5">
-                                        <div className="flex flex-col">
-                                            <label htmlFor="date">Date :</label>
-                                            <input name="date" className="border" type="date" />
-                                        </div>
+                        {/* DATE */}
+                        <div className="flex flex-col gap-2">
+                            <label
+                                htmlFor="date"
+                                className="text-sm font-medium text-slate-700"
+                            >
+                                Date
+                            </label>
 
-                                        <div className="flex flex-col">
-                                            <label htmlFor="lieu">Lieu/Salle* :</label>
-                                            <input name="lieu" className="border" type="text" />
-                                        </div>
-                                    </div>
-
-                                    <div className="flex gap-5">
-
-
-                                        <div className="flex flex-col">
-                                            <label htmlFor="heure_debut">Heure de début* :</label>
-                                            <input name="heure_debut" className="border" type="time" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div className="infoO flex flex-col gap-5 ">
-                                    <div>
-                                        <h4>Informations générales</h4>
-                                    </div>
-                                    <div className="flex gap-5">
-                                        <div className="flex flex-col">
-                                            <label htmlFor="duree">Durée prévue :</label>
-                                            <input name="duree" className="border" type="number" />
-                                        </div>
-
-                                        <div className="flex flex-col">
-                                            <label htmlFor="partenaire">Partenaire de grimpe :</label>
-                                            <input name="partenaire" className="border" type="text" />
-                                        </div>
-                                    </div>
-
-                                    <div className="flex gap-5">
-                                        <div className="flex flex-col">
-                                            <label htmlFor="objectif">Objectif de la séance :</label>
-                                            <input name="objectif" className="border" type="text" />
-                                        </div>
-
-                                        <div className="flex flex-col">
-                                            <label htmlFor="notes">notes :</label>
-                                            <input name="notes" className="border" type="text" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button className="buttonMB mt-7" type='submit' disabled={isPending}>
-                                    {isPending ? 'Création...' : 'Démarrez la session'}
-                                </button>
-
-                                {/* <Link href="/sessionencours">
-                                    <button className="bg-red-500">Démarrer la session</button>
-                                </Link> */}
-
-                                {/* <button className="bg-cyan-900">Démarrer la session</button> */}
-
-                            </form>
+                            <input
+                                id="date"
+                                name="date"
+                                type="date"
+                                className="w-full border border-slate-200 rounded-lg px-4 py-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                            />
                         </div>
 
 
+                        {/* LIEU */}
+                        <div className="flex flex-col gap-2">
+                            <label
+                                htmlFor="lieu"
+                                className="text-sm font-medium text-slate-700"
+                            >
+                                Lieu / Salle *
+                            </label>
 
-                        <div className="apercu flex flex-col gap-5  " >
+                            <input
+                                id="lieu"
+                                name="lieu"
+                                type="text"
+                                placeholder="Ex : Arkose Canal"
+                                className="w-full border border-slate-200 rounded-lg px-4 py-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                            />
+                        </div>
 
-                            <div className="apercus border p-5 flex flex-col gap-3 rounded-xl">
-                                <div>
-                                    <h2>Apercu</h2>
-                                    <p>Un petit aperçu de ta futur séance</p>
-                                </div>
 
-                                <div>
-                                    image de la salle peut etre icic
-                                </div>
+                        {/* HEURE */}
+                        <div className="flex flex-col gap-2">
+                            <label
+                                htmlFor="heure_debut"
+                                className="text-sm font-medium text-slate-700"
+                            >
+                                Heure de début *
+                            </label>
 
-                                <div className="">
-                                    <div className="flex justify-between border-b ">
-                                        <p>date</p>
-                                        <p>9 septembre 2026</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>LIEU</p>
-                                        <p>Arkose Nation</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>Type</p>
-                                        <p>Bloc</p>
-                                    </div>
-                                </div>
-
-                                <div className=" ">
-                                    <div className="flex justify-between border-b ">
-                                        <p>Heure de début</p>
-                                        <p>18:30</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>Durée prévue</p>
-                                        <p>--</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>Objectif</p>
-                                        <p>Aucun</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between ">
-                                        <p>Partenaire</p>
-                                        <p>--</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="border p-5 rounded-xl">
-                                <h2>Conseil</h2>
-                                <p>Tu pourras modifier ces infos ...</p>
-                            </div>
-
+                            <input
+                                id="heure_debut"
+                                name="heure_debut"
+                                type="time"
+                                className="w-full border border-slate-200 rounded-lg px-4 py-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                            />
                         </div>
 
                     </div>
-                </div>
+
+
+                    {/* SEPARATION */}
+                    <div className="border-t border-slate-200"></div>
+
+
+                    {/* DEUXIÈME PARTIE */}
+                    <div>
+                        <h2 className="text-xl font-semibold text-slate-900">
+                            Détails de la séance
+                        </h2>
+
+                        <p className="text-sm text-gray-500 mt-1">
+                            Ces informations sont facultatives.
+                        </p>
+                    </div>
+
+
+                    <div className="grid grid-cols-2 gap-6">
+
+                        {/* DURÉE */}
+                        <div className="flex flex-col gap-2">
+                            <label
+                                htmlFor="duree"
+                                className="text-sm font-medium text-slate-700"
+                            >
+                                Durée prévue
+                            </label>
+
+                            <input
+                                id="duree"
+                                name="duree"
+                                type="number"
+                                placeholder="Ex : 120 min"
+                                className="w-full border border-slate-200 rounded-lg px-4 py-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                            />
+                        </div>
+
+
+                        {/* PARTENAIRE */}
+                        <div className="flex flex-col gap-2">
+                            <label
+                                htmlFor="partenaire"
+                                className="text-sm font-medium text-slate-700"
+                            >
+                                Partenaire de grimpe
+                            </label>
+
+                            <input
+                                id="partenaire"
+                                name="partenaire"
+                                type="text"
+                                placeholder="Optionnel"
+                                className="w-full border border-slate-200 rounded-lg px-4 py-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                            />
+                        </div>
+
+
+                        {/* OBJECTIF */}
+                        <div className="flex flex-col gap-2">
+                            <label
+                                htmlFor="objectif"
+                                className="text-sm font-medium text-slate-700"
+                            >
+                                Objectif de la séance
+                            </label>
+
+                            <input
+                                id="objectif"
+                                name="objectif"
+                                type="text"
+                                placeholder="Objectif : 20 blocs"
+                                className="w-full border border-slate-200 rounded-lg px-4 py-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                            />
+                        </div>
+
+
+                        {/* NOTES */}
+                        <div className="flex flex-col gap-2">
+                            <label
+                                htmlFor="notes"
+                                className="text-sm font-medium text-slate-700"
+                            >
+                                Notes
+                            </label>
+
+                            <input
+                                id="notes"
+                                name="notes"
+                                type="text"
+                                placeholder="Optionnel"
+                                className="w-full border border-slate-200 rounded-lg px-4 py-3 outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100"
+                            />
+                        </div>
+
+                    </div>
+
+
+                    {/* ERREUR */}
+                    {state?.error && (
+                        <p className="text-sm text-red-500">
+                            {state.error}
+                        </p>
+                    )}
+
+
+                    {/* BOUTON */}
+                    <button
+                        type="submit"
+                        disabled={isPending}
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg transition disabled:opacity-50"
+                    >
+                        {isPending
+                            ? "Création..."
+                            : "Démarrer la session"
+                        }
+                    </button>
+
+                </form>
 
             </div>
-        </>
-    )
+
+        </div>
+
+    </div>
+);
 }

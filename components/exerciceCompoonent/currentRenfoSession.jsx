@@ -1,4 +1,5 @@
 import { getInfoUserAction } from "@/actions/auth.action";
+import { endSessionRenfoAction } from "@/actions/sessionRenfo.action";
 
 export default async function CurrentRenfoSession() {
 
@@ -77,10 +78,22 @@ export default async function CurrentRenfoSession() {
                         )}
                     </p>
 
+
+
                 </div>
 
-            ))}
 
+
+            ))}
+            <form action={endSessionRenfoAction.bind(null, sessionRenfo.id)}>
+                <button
+                    type="submit"
+                    className="mt-4 px-6 py-3 bg-blue-500 text-white rounded-lg whitespace-nowrap"
+                >
+                    Terminer la séance
+                </button>
+            </form>
         </div>
     );
 }
+

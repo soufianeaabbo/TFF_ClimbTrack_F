@@ -56,3 +56,26 @@ revalidatePath('/exo');
     //? Redirection en fin de traitement
     redirect(`/exo`);
 }
+
+
+export async function endSessionRenfoAction(sessionId) {
+
+    const res = await fetch(
+        `${process.env.URL_WEB_API}/session-renfo/${sessionId}`,
+        {
+            method: 'PATCH'
+        }
+    );
+
+    if (!res.ok) {
+        return {
+            error: "Erreur lors de la fin de la séance"
+        };
+    }
+
+    revalidatePath('/exo');
+
+    return {
+        success: true
+    };
+}

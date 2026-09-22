@@ -2,7 +2,7 @@
 
 import { getInfoUserAction } from './auth.action';
 
-
+import { revalidatePath } from 'next/cache';
 // Crée une nouvelle séance de renforcement
 // puis ajoute tous les exercices sélectionnés dans cette séance
 export async function createSessionRenfoAction(selectedExercices) {
@@ -54,7 +54,7 @@ export async function createSessionRenfoAction(selectedExercices) {
     // 2. Pour chaque exercice sélectionné,
     // crée un ExerciceSession lié à cette même SessionRenfo
     // pour chaque exercice que l’utilisateur a coché, fais le POST qui crée son ExerciceSession
-    for (const exerciceId of selectedExercices) {
+    for (const exercice of selectedExercices) {
 
         const exerciceResponse = await fetch(
             `${process.env.URL_WEB_API}/exercice-session`,
@@ -64,16 +64,23 @@ export async function createSessionRenfoAction(selectedExercices) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    // pour chaque objet sélectionné, on récupère ce que tu as entré dans le modal
                     session_renfo_id: sessionRenfo.id,
-                    exercice_id: exerciceId,
-
-                    // Valeurs temporaires pour démarrer la séance
-                    nombre_series: 1,
-                    objectif_reps: 1
+                    exercice_id: Number(exercice.exercice_id),
+                    nombre_series: Number(exercice.nombre_series),
+                    objectif_reps: Number(exercice.objectif_reps),
+                    charge: exercice.charge === ""
+                        ? null
+                        : Number(exercice.charge),
+                    temps_repos: Number(exercice.temps_repos)
                 })
             }
         );
-
+        console.log(
+            "POST exercice-session :",
+            exerciceResponse.status,
+            await exerciceResponse.clone().text()
+        );
 
         if (!exerciceResponse.ok) {
             return {
@@ -82,9 +89,40 @@ export async function createSessionRenfoAction(selectedExercices) {
         }
     }
 
+    // Les données de /exo viennent de changer, recalcule cette page avec les nouvelles données. »
+    revalidatePath('/exo');
 
     return {
         success: true,
         sessionId: sessionRenfo.id
+
     };
 }
+
+
+
+export async function endSessionRenfoAction(sessionId) {
+
+    const res = await fetch(
+        `${process.env.URL_WEB_API}/session-renfo/${sessionId}`,
+        {
+            method: 'PATCH'
+        }
+    );
+
+    if (!res.ok) {
+        return {
+            error: "Erreur lors de la fin de la séance"
+        };
+    }
+
+    revalidatePath('/exo');
+
+    return {
+        success: true
+    };
+}
+
+
+
+

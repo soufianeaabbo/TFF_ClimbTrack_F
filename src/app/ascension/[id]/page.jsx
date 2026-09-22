@@ -10,317 +10,403 @@ export default async function CreateAscension({ params }) {
     const { id } = await params;
 
     return (
-        <>
-            <div className="justepourlefon flex flex-col min-h-[100vh] items-center justify-center  ">
+    <div className="min-h-screen bg-slate-50 px-8 py-10">
 
-                <div className="flex flex-col gap-5  p-5 w-7/8 ">
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                        <span>Séances</span>
-                        <span>›</span>
-                        <span>Session en cours</span>
-                        <span>›</span>
-                        <span className="text-gray-700 font-medium">
-                            Ajouter une ascension
-                        </span>
-                    </div>
+        <div className="max-w-6xl mx-auto">
 
-                    <div className="flex items-center gap-4 ">
+            {/* FIL D'ARIANE */}
+            <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
+                <span>Séances</span>
+                <span>›</span>
+                <span>Session en cours</span>
+                <span>›</span>
+                <span className="text-gray-700 font-medium">
+                    Ajouter une ascension
+                </span>
+            </div>
 
-                        {/* Petit carré bleu avec l'icône */}
-                        <div className="bg-blue-100 p-3 rounded-lg">
-                            <Mountain size={24} className="text-blue-500" />
-                        </div>
 
-                        <div>
-                            <h1 className="text-xl font-bold">
-                                Ajouter une Ascension
-                            </h1>
+            {/* TITRE */}
+            <div className="flex items-center gap-4 mb-8">
 
-                            <p className="text-sm text-gray-500">
-                                Enregistrer les détails de ce bloc ou de cette voie.
+                <div className="bg-blue-100 p-3 rounded-xl">
+                    <Mountain size={24} className="text-blue-500" />
+                </div>
+
+                <div>
+                    <h1 className="text-2xl font-bold text-slate-900">
+                        Ajouter une ascension
+                    </h1>
+
+                    <p className="text-sm text-gray-500">
+                        Enregistre les informations de ton bloc ou de ta voie.
+                    </p>
+                </div>
+
+            </div>
+
+
+            {/* FORMULAIRE */}
+            <form
+                action={createAscensionAction}
+                className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden"
+            >
+
+                <input
+                    type="hidden"
+                    name="session_id"
+                    value={id}
+                />
+
+
+                <div className="grid grid-cols-2">
+
+
+                    {/* ============================= */}
+                    {/* COLONNE GAUCHE */}
+                    {/* ============================= */}
+
+                    <div className="p-8 border-r border-slate-200">
+
+                        <div className="mb-7">
+                            <p className="text-xs font-semibold text-blue-500 uppercase mb-1">
+                                Étape 1
                             </p>
-                        </div>
 
-                    </div>
-
-
-                    <div className="infoApercus flex gap-5 border items-start bg-white/50 border-white rounded-3xl p-5 shadow-sm ">
-
-                        <div className="infobloc  p-5 flex flex-col gap-3 w-3/4  rounded-xl">
-
-
-
-                            <form action={createAscensionAction} className="flex  gap-5">
-
-                                {/* Garde l'id de la session pour rattacher l'ascension à la bonne session */}
-                                <input type="hidden" name="session_id" value={id} />
-
-                                <div className="w-1/2 infoescalade flex flex-col gap-5 justify-between rounded-2xl p-5 box bg-white shadow-2xl ">
-                                    <div>
-                                        <h2>Information de l'acension</h2>
-                                    </div>
-
-                                    <div>
-                                        <label htmlFor="">Type d'escalade*</label>
-                                        <div className="flex gap-3">
-
-                                            {/* BLOC */}
-                                            <label className="flex-1 cursor-pointer">
-                                                <input type="radio" name="type" value="bloc" className="peer hidden" defaultChecked />
-                                                <div className="border rounded-lg p-4 text-center peer-checked:bg-[#087FE7] peer-checked:border-cyan-500 border-cyan-500">
-                                                    🧗 Bloc
-                                                </div>
-                                            </label>
-
-
-                                            {/* VOIE */}
-                                            <label className="flex-1 cursor-pointer">
-                                                <input type="radio" name="type" value="voie" className="peer hidden" />
-                                                <div className="border rounded-lg p-4 text-center peer-checked:bg-[#087FE7] peer-checked:border-cyan-500 border-cyan-500">
-                                                    🧗 Voie
-                                                </div>
-                                            </label>
-
-                                        </div>
-                                    </div>
-
-                                    <div className="flex flex-col">
-                                        <label htmlFor="nom">Nom du bloc/voie</label>
-                                        <input className="border" name="nom" type="text" placeholder="ex : Le Toit Jaune" />
-                                    </div>
-
-                                    <div className="flex flex-col">
-                                        <label htmlFor="cotation">Cotation</label>
-                                        <select className="border" name="cotation">
-                                            <option value="">Choisir une cotation</option>
-                                            <option value="V0">V0</option>
-                                            <option value="V1">V1</option>
-                                            <option value="V2">V2</option>
-                                            <option value="V3">V3</option>
-                                            <option value="V4">V4</option>
-                                            <option value="V5">V5</option>
-                                            <option value="V6">V6</option>
-                                            <option value="V7+">V7+</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="flex flex-col">
-                                        <label htmlFor="secteur">Secteur/mur</label>
-                                        <select className="border" name="secteur">
-                                            <option value="">Choisir un secteur</option>
-                                            <option value="Devers">Devers</option>
-                                            <option value="dalle">Dalle</option>
-                                            <option value="arete">Arête</option>
-                                            <option value="diedre">Dièdre</option>
-                                            <option value="toit">Toit</option>
-                                            <option value="vertical">Vertical</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="flex flex-col">
-                                        <label htmlFor="couleur">Couleur</label>
-                                        <select className="border" name="couleur">
-                                            <option value="">Choisir une couleurs</option>
-                                            <option value="Jaune">Jaune</option>
-                                            <option value="Vert">Vert</option>
-                                            <option value="BLeu">BLeu</option>
-                                            <option value="Rouge">Rouge</option>
-                                            <option value="Noire">Noire</option>
-                                            <option value="Mauve">Mauve</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="flex flex-col">
-                                        <label htmlFor="commentaire">Commentaire</label>
-                                        <input className="border" type="text" name="commentaire" />
-                                    </div>
-
-                                </div>
-
-
-                                <div className="w-1/2 resultats flex flex-col gap-5 rounded-2xl p-5 bg-white shadow-2xl">
-
-                                    <div>
-                                        <h2>Résultats et essais</h2>
-                                    </div>
-
-                                    <div>
-                                        <label htmlFor="resultat">Résultats</label>
-                                        <div className="flex gap-3">
-
-                                            {/* BLOC */}
-                                            <label className="flex-1 cursor-pointer">
-                                                <input type="radio" name="resultat" value="true" className="peer hidden " defaultChecked />
-                                                <div className="border rounded-lg p-4 text-center peer-checked:bg-[#087FE7] peer-checked:border-cyan-500 border-cyan-500">
-                                                    ✅ Réussi
-                                                </div>
-                                            </label>
-
-
-                                            {/* VOIE */}
-                                            <label className="flex-1 cursor-pointer">
-                                                <input type="radio" name="resultat" value="false" className="peer hidden" />
-                                                <div className="border rounded-lg p-4 text-center peer-checked:bg-[#087FE7] peer-checked:border-cyan-500 border-cyan-500">
-                                                    ❌ Échoué
-                                                </div>
-                                            </label>
-
-                                        </div>
-                                    </div>
-
-                                    {/* Nombre d'essais */}
-                                    <div className="flex flex-col gap-2">
-                                        <label htmlFor="nombre_essais">
-                                            Nombre d'essais*
-                                        </label>
-
-                                        <select
-                                            name="nombre_essais"
-                                            id="nombre_essais"
-                                            required
-                                        >
-                                            <option value="">Sélectionner</option>
-                                            <option value="1">Flash — 1 essai</option>
-                                            <option value="2">2 essais</option>
-                                            <option value="3">3 essais</option>
-                                            <option value="4">4 essais</option>
-                                            <option value="5">5 essais</option>
-                                            <option value="6">6 essais</option>
-                                            <option value="7">7 essais</option>
-                                            <option value="8">8 essais</option>
-                                            <option value="9">9 essais</option>
-                                            <option value="10">10+ essais</option>
-                                        </select>
-                                    </div>
-
-
-
-
-                                    <div className="border border-gray-800 rounded-xl p-4">
-
-                                        <p className="mb-3 font-semibold">
-                                            Style du bloc <span className="text-gray-400 font-normal">(optionnel)</span>
-                                        </p>
-                                        <div className="grid grid-cols-3 gap-2">
-                                            {tableStyle.map((style) => (
-                                                <label key={style} className="cursor-pointer">
-
-                                                    {/* Checkbox cachée */}
-                                                    <input
-                                                        type="checkbox"
-                                                        name="styles"
-                                                        value={style}
-                                                        className="peer hidden"
-                                                    />
-
-                                                    {/* Bouton visible */}
-                                                    <div
-                                                        className=" border  rounded-md px-3 py-2 text-sm text-center peer-checked:bg-[#087FE7] peer-checked:border-cyan-500 border-cyan-500"
-                                                    >
-                                                        {style}
-                                                    </div>
-
-                                                </label>
-
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <div className="flex justify-around gap-5">
-                                        <button className="border border-[#E2E8F0] bg-white rounded-lg w-1/3">Annuler</button>
-                                        <button className="bg-[#087FE7] text-white rounded-lg px-6 py-3 w-2/3">Enregistrer</button>
-                                    </div>
-                                </div>
-
-
-
-
-
-
-                            </form>
-
-
-
+                            <h2 className="text-xl font-bold text-slate-900">
+                                Informations de l'ascension
+                            </h2>
                         </div>
 
 
-                        <div className="apercu flex flex-col gap-5 rounded-2xl p-5 bg-white shadow-2xl" >
+                        <div className="flex flex-col gap-6">
 
-                            <div className="apercus border p-5 flex flex-col gap-3 rounded-xl">
+
+                            {/* TYPE */}
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 mb-2">
+                                    Type d'escalade *
+                                </label>
+
+                                <div className="grid grid-cols-2 gap-3">
+
+                                    <label className="cursor-pointer">
+
+                                        <input
+                                            type="radio"
+                                            name="type"
+                                            value="bloc"
+                                            className="peer hidden"
+                                            defaultChecked
+                                        />
+
+                                        <div className="border border-slate-200 rounded-xl p-3 text-center transition peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500 hover:border-blue-300">
+                                            🧗 Bloc
+                                        </div>
+
+                                    </label>
+
+
+                                    <label className="cursor-pointer">
+
+                                        <input
+                                            type="radio"
+                                            name="type"
+                                            value="voie"
+                                            className="peer hidden"
+                                        />
+
+                                        <div className="border border-slate-200 rounded-xl p-3 text-center transition peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500 hover:border-blue-300">
+                                            🧗 Voie
+                                        </div>
+
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+                            {/* NOM */}
+                            <div>
+                                <label
+                                    htmlFor="nom"
+                                    className="block text-sm font-medium text-slate-700 mb-2"
+                                >
+                                    Nom du bloc / voie
+                                </label>
+
+                                <input
+                                    id="nom"
+                                    name="nom"
+                                    type="text"
+                                    placeholder="Ex : Le Toit Jaune"
+                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
+                                />
+                            </div>
+
+
+                            {/* COTATION + SECTEUR */}
+                            <div className="grid grid-cols-2 gap-4">
+
                                 <div>
-                                    <h2>Apercu</h2>
+                                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                                        Cotation
+                                    </label>
+
+                                    <select
+                                        name="cotation"
+                                        className="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white outline-none focus:border-blue-500"
+                                    >
+                                        <option value="">Choisir</option>
+                                        <option value="V0">V0</option>
+                                        <option value="V1">V1</option>
+                                        <option value="V2">V2</option>
+                                        <option value="V3">V3</option>
+                                        <option value="V4">V4</option>
+                                        <option value="V5">V5</option>
+                                        <option value="V6">V6</option>
+                                        <option value="V7+">V7+</option>
+                                    </select>
                                 </div>
 
-                                <div className="bg-red-300 w-80 h-50">
 
-                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-slate-700 mb-2">
+                                        Secteur / mur
+                                    </label>
 
-                                <div className="">
-                                    <div className="flex justify-between border-b ">
-                                        <p>Type</p>
-                                        <p>Bloc</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>Secteur</p>
-                                        <p>Le toit</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>couleur</p>
-                                        <p>jaune</p>
-                                    </div>
-                                </div>
-
-                                <div className=" ">
-                                    <div className="flex justify-between border-b ">
-                                        <p>Résultats</p>
-                                        <p>réussi</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>Essais</p>
-                                        <p>4</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between border-b">
-                                        <p>méthode</p>
-                                        <p>flash</p>
-                                    </div>
-                                </div>
-
-                                <div className="">
-                                    <div className="flex justify-between ">
-                                        <p>Style</p>
-                                        <p>dévers</p>
-                                    </div>
+                                    <select
+                                        name="secteur"
+                                        className="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white outline-none focus:border-blue-500"
+                                    >
+                                        <option value="">Choisir</option>
+                                        <option value="Devers">Devers</option>
+                                        <option value="dalle">Dalle</option>
+                                        <option value="arete">Arête</option>
+                                        <option value="diedre">Dièdre</option>
+                                        <option value="toit">Toit</option>
+                                        <option value="vertical">Vertical</option>
+                                    </select>
                                 </div>
 
                             </div>
 
 
+                            {/* COULEUR */}
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 mb-2">
+                                    Couleur
+                                </label>
+
+                                <select
+                                    name="couleur"
+                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white outline-none focus:border-blue-500"
+                                >
+                                    <option value="">Choisir une couleur</option>
+                                    <option value="Jaune">Jaune</option>
+                                    <option value="Vert">Vert</option>
+                                    <option value="BLeu">Bleu</option>
+                                    <option value="Rouge">Rouge</option>
+                                    <option value="Noire">Noire</option>
+                                    <option value="Mauve">Mauve</option>
+                                </select>
+                            </div>
 
 
+                            {/* COMMENTAIRE */}
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 mb-2">
+                                    Commentaire
+                                </label>
+
+                                <textarea
+                                    name="commentaire"
+                                    rows="3"
+                                    placeholder="Une remarque sur cette ascension..."
+                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 resize-none outline-none focus:border-blue-500"
+                                />
+                            </div>
 
                         </div>
-
 
                     </div>
 
 
+                    {/* ============================= */}
+                    {/* COLONNE DROITE */}
+                    {/* ============================= */}
 
+                    <div className="p-8">
+
+                        <div className="mb-7">
+                            <p className="text-xs font-semibold text-blue-500 uppercase mb-1">
+                                Étape 2
+                            </p>
+
+                            <h2 className="text-xl font-bold text-slate-900">
+                                Résultat et caractéristiques
+                            </h2>
+                        </div>
+
+
+                        <div className="flex flex-col gap-6">
+
+
+                            {/* RESULTAT */}
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 mb-2">
+                                    Résultat
+                                </label>
+
+                                <div className="grid grid-cols-2 gap-3">
+
+                                    <label className="cursor-pointer">
+
+                                        <input
+                                            type="radio"
+                                            name="resultat"
+                                            value="true"
+                                            className="peer hidden"
+                                            defaultChecked
+                                        />
+
+                                        <div className="border border-slate-200 rounded-xl p-3 text-center transition peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500">
+                                            ✓ Réussi
+                                        </div>
+
+                                    </label>
+
+
+                                    <label className="cursor-pointer">
+
+                                        <input
+                                            type="radio"
+                                            name="resultat"
+                                            value="false"
+                                            className="peer hidden"
+                                        />
+
+                                        <div className="border border-slate-200 rounded-xl p-3 text-center transition peer-checked:bg-red-500 peer-checked:text-white peer-checked:border-red-500">
+                                            ✕ Échoué
+                                        </div>
+
+                                    </label>
+
+                                </div>
+                            </div>
+
+
+                            {/* ESSAIS */}
+                            <div>
+                                <label
+                                    htmlFor="nombre_essais"
+                                    className="block text-sm font-medium text-slate-700 mb-2"
+                                >
+                                    Nombre d'essais *
+                                </label>
+
+                                <select
+                                    name="nombre_essais"
+                                    id="nombre_essais"
+                                    required
+                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 bg-white outline-none focus:border-blue-500"
+                                >
+                                    <option value="">Sélectionner</option>
+                                    <option value="1">Flash — 1 essai</option>
+                                    <option value="2">2 essais</option>
+                                    <option value="3">3 essais</option>
+                                    <option value="4">4 essais</option>
+                                    <option value="5">5 essais</option>
+                                    <option value="6">6 essais</option>
+                                    <option value="7">7 essais</option>
+                                    <option value="8">8 essais</option>
+                                    <option value="9">9 essais</option>
+                                    <option value="10">10+ essais</option>
+                                </select>
+                            </div>
+
+
+                            {/* STYLES */}
+                            <div>
+
+                                <div className="mb-3">
+                                    <p className="text-sm font-medium text-slate-700">
+                                        Style du bloc
+                                    </p>
+
+                                    <p className="text-xs text-gray-400">
+                                        Tu peux sélectionner plusieurs styles.
+                                    </p>
+                                </div>
+
+
+                                <div className="grid grid-cols-3 gap-2">
+
+                                    {tableStyle.map((style) => (
+
+                                        <label
+                                            key={style}
+                                            className="cursor-pointer"
+                                        >
+
+                                            <input
+                                                type="checkbox"
+                                                name="styles"
+                                                value={style}
+                                                className="peer hidden"
+                                            />
+
+                                            <div className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm text-center transition hover:border-blue-300 peer-checked:bg-blue-500 peer-checked:text-white peer-checked:border-blue-500">
+                                                {style}
+                                            </div>
+
+                                        </label>
+
+                                    ))}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-            </div>
-        </>
-    )
+
+                {/* BAS DU FORMULAIRE */}
+                <div className="border-t border-slate-200 bg-slate-50 px-8 py-5 flex items-center justify-between">
+
+                    <p className="text-sm text-gray-400">
+                        Les champs avec * sont obligatoires.
+                    </p>
+
+
+                    <div className="flex gap-3">
+
+                        <button
+                            type="button"
+                            className="border border-slate-200 bg-white text-slate-600 rounded-xl px-6 py-3 hover:bg-slate-100"
+                        >
+                            Annuler
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-xl px-8 py-3"
+                        >
+                            Enregistrer l'ascension
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+);
 }
