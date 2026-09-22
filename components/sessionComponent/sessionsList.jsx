@@ -10,6 +10,13 @@ export default async function SessionsList() {
    // Récupère les informations de l'utilisateur actuellement connecté
     const userConnected = await getInfoUserAction();
 
+
+    if (!userConnected) {
+    return (
+        <p>Connectez-vous pour voir vos dernières séances.</p>
+    );
+}
+
     // Appelle le backend pour récupérer toutes les sessions
     // terminées appartenant à l'utilisateur connecté
     const res = await fetch(
@@ -24,18 +31,16 @@ export default async function SessionsList() {
     // Ce tableau contiendra toutes les sessions du user
     const sessions = await res.json();
 
-    // Test temporaire pour vérifier les données récupérées
-    // console.log("SESSIONS DU USER :", sessions);
+
 
     return (
+
+        
     <div className="flex flex-col gap-4">
 
         {sessions.map((session) => (
 
-            <div
-                key={session.id}
-                className="bg-white border border-slate-200 rounded-xl shadow-sm p-5"
-            >
+            <div key={session.id} className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
                 <div className="flex items-center justify-between">
 
                     <div className="text-center w-24">

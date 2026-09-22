@@ -18,8 +18,7 @@ export default function SessionDetailsModal({ session, onClose }) {
 
             const data = await res.json();
 
-            console.log("SESSION ID :", session.id);
-console.log("ASCENSIONS :", data);
+          
 
             setAscensions(data);
         }
@@ -135,11 +134,10 @@ console.log("ASCENSIONS :", data);
 
                                 <div
                                     key={ascension.id}
-                                    className={`grid grid-cols-5 items-center text-center p-4 border rounded-xl ${
-                                        ascension.resultat
+                                    className={`grid grid-cols-5 items-center text-center p-4 border rounded-xl ${ascension.resultat
                                             ? "bg-green-50 border-green-200"
                                             : "bg-red-50 border-red-200"
-                                    }`}
+                                        }`}
                                 >
 
                                     <div>

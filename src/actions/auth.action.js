@@ -47,8 +47,6 @@ export async function authRegisterAction(prevState, formData) {
 }
 
 
-
-
 export async function authLoginAction(prevState, formData) {
 
     const data = Object.fromEntries(formData);
