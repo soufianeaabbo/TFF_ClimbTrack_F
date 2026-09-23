@@ -35,8 +35,10 @@ export async function authRegisterAction(prevState, formData) {
     // Traitement de la requete
     // - En cas d'erreur
     if (!res.ok) {
+        
+         const errorData = await res.json();
         return {
-            error: 'Erreur lors de la création du compte'
+            error: errorData.message
         };
     }
 
